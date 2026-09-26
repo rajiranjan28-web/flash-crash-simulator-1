@@ -13,20 +13,20 @@
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
-  --bg:#ECEFF3; --surface:#FFFFFF; --ink:#131C26; --muted:#4A5A6E; --line:#D2D9E1; --soft:#F4F6F9;
-  --red:#C2301D; --red-soft:#FBE8E4; --teal:#0A7A72; --teal-soft:#DFF2EF; --amber:#8F5A00; --amber-soft:#FBF0D9; --focus:#1F5FBF;
+  --bg:#f4efe6; --surface:#fffaf2; --ink:#2c221e; --muted:#7a6d65; --line:#d9cca3; --soft:#ede5d5;
+  --red:#cc553b; --red-soft:#f9e5e0; --teal:#b87d2b; --teal-soft:#fbf3dc; --amber:#d9a036; --amber-soft:#fbf3dc; --focus:#b87d2b;
   --head:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
   --body:"Public Sans","Segoe UI",system-ui,-apple-system,sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0D131A; --surface:#151F2A; --ink:#E8EEF4; --muted:#A9B7C7; --line:#2A3846; --soft:#1B2632;
-    --red:#FF7B68; --red-soft:#3A1F1C; --teal:#3FD0C3; --teal-soft:#123531; --amber:#EDB55A; --amber-soft:#382B12; --focus:#7FB0FF;
+    --bg:#1c1816; --surface:#2d2621; --ink:#f4efe6; --muted:#b5a499; --line:#443831; --soft:#362e29;
+    --red:#e06d53; --red-soft:#42231d; --teal:#e6b24a; --teal-soft:#423419; --amber:#e6b24a; --amber-soft:#423419; --focus:#d9a036;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0D131A; --surface:#151F2A; --ink:#E8EEF4; --muted:#A9B7C7; --line:#2A3846; --soft:#1B2632;
-  --red:#FF7B68; --red-soft:#3A1F1C; --teal:#3FD0C3; --teal-soft:#123531; --amber:#EDB55A; --amber-soft:#382B12; --focus:#7FB0FF;
+  --bg:#1c1816; --surface:#2d2621; --ink:#f4efe6; --muted:#b5a499; --line:#443831; --soft:#362e29;
+  --red:#e06d53; --red-soft:#42231d; --teal:#e6b24a; --teal-soft:#423419; --amber:#e6b24a; --amber-soft:#423419; --focus:#d9a036;
 }
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
@@ -44,10 +44,11 @@ button,input{font:inherit;color:inherit}
 h1{font-size:clamp(24px,3.6vw,36px);font-weight:800}
 .lede{max-width:64ch;margin-top:6px;color:var(--muted);font-size:15px}
 .disc{max-width:36ch;font-size:12.5px;color:var(--muted)}
-.words{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
-.words div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;color:var(--muted)}
+.words{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
+.words div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:7px 12px;font-size:12.5px;line-height:1.4;color:var(--muted)}
 .words b{font-family:var(--head);font-size:14.5px;color:var(--ink);margin-right:4px}
-@media (max-width:820px){.words{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:820px){.words{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:440px){.words{grid-template-columns:minmax(0,1fr)}}
 
 /* cards */
 .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
@@ -112,24 +113,38 @@ input[type=range]{width:100%;accent-color:var(--ink);margin:4px 0 0;height:24px}
 .verdict b{font-weight:700}
 
 /* results + charts */
-.res{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:14px;margin-top:14px;align-items:start}
-@media (max-width:900px){.res{grid-template-columns:minmax(0,1fr)}}
+.cards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:12px}
+.kpi{grid-column:span 2;border:2px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--surface);min-width:0}
+.kpi.hero{grid-column:span 3;padding:16px 18px}
+.kpi .k{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:13px;font-weight:700}
+.kpi .k small{font-weight:400;font-size:12px;opacity:.8}
+.kpi .big{font-family:var(--head);font-weight:800;line-height:1.05;white-space:nowrap;margin:6px 0 4px;font-size:clamp(22px,2.6vw,28px)}
+.kpi.hero .big{font-size:clamp(32px,4.4vw,46px);margin:8px 0 6px}
+.kpi .was{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:12.5px;opacity:.9}
+.kpi .sub{margin-top:8px;padding-top:7px;border-top:1px dashed currentColor;font-size:12.5px;opacity:.85}
+.kpi .sub span{white-space:nowrap}
+.kpi.a{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.kpi.b{background:var(--teal-soft);border-color:var(--teal)}
+.kpi.b .big{color:var(--teal)}
+.kpi.warn{border-color:var(--amber);background:var(--amber-soft)}
+.chg{display:inline-block;font-family:var(--head);font-weight:700;font-size:12px;line-height:1.5;padding:0 8px;border-radius:999px;white-space:nowrap}
+.chg.good{background:var(--teal-soft);color:var(--teal)} .chg.bad{background:var(--red-soft);color:var(--red)}
+@media (max-width:560px){.kpi.hero{grid-column:span 6}.kpi{grid-column:span 3}.kpi:last-child{grid-column:span 6}}
+@media (max-width:560px){.kpi:not(.hero) .k{flex-direction:column;gap:0}}
 table{border-collapse:collapse;width:100%}
 th,td{padding:7px 8px;text-align:right;border-bottom:1px solid var(--line);vertical-align:middle}
 th:first-child,td:first-child{text-align:left;padding-left:0}
 th:last-child,td:last-child{padding-right:0}
 tr:last-child td{border-bottom:0}
 th{font-weight:700;font-size:12.5px}
-th.red{color:var(--red)} th.teal{color:var(--teal)}
-.stats td.l{font-size:13px;font-weight:500;width:40%}
-.stats td.l span{display:block;font-size:12px;color:var(--muted);font-weight:400}
-.stats td.v{font-family:var(--head);font-size:16px;font-weight:800;white-space:nowrap}
-.stats td.v.red{color:var(--red)} .stats td.v.teal{color:var(--teal)}
-.fundbar{height:6px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:4px;min-width:60px}
+.fundbar{height:6px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:6px}
 .fundbar i{display:block;height:100%;background:var(--amber)}
-.legend{display:flex;gap:4px 14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.legend{display:flex;gap:4px 14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-bottom:4px}
 .lg{display:inline-block;width:20px;height:0;border-top:3px solid;vertical-align:middle;margin-right:5px}
 .lg.red{border-color:var(--red)} .lg.teal{border-color:var(--teal)} .lg.dash{border-color:var(--muted);border-top-style:dashed}
+
+.charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 18px}
+@media (max-width:700px){.charts{grid-template-columns:minmax(0,1fr)}}
 .chart h3{font-size:13px;font-weight:700;margin:6px 0 0}
 .chart svg{width:100%;height:auto;display:block}
 svg text{font-family:var(--body);fill:var(--muted);font-size:11px}
@@ -145,20 +160,38 @@ svg .head{stroke:var(--ink);stroke-width:1.5}
 
 /* bottom */
 .tablewrap{overflow-x:auto}
-.three th,.three td{text-align:right;font-size:13px;padding:6px 8px}
+.three th,.three td{text-align:right;font-size:13px;padding:8px 8px}
 .three th:first-child,.three td:first-child{text-align:left}
-.three thead tr:first-child th[colspan]{text-align:center;border-bottom:0;padding-bottom:0}
-.three td.red{color:var(--red);font-weight:700} .three td.teal{color:var(--teal);font-weight:700}
+.three .r{color:var(--red);font-weight:700} .three .g{color:var(--teal);font-weight:700}
+.three .arrow{color:var(--muted);padding:0 3px}
+.key{font-size:12.5px;color:var(--muted);margin:0 0 6px}
+.key .r{color:var(--red);font-weight:700}.key .g{color:var(--teal);font-weight:700}
 .rule{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 @media (max-width:820px){.rule{grid-template-columns:minmax(0,1fr)}}
 .rule div{border:1.5px solid var(--line);border-radius:10px;padding:7px 12px;font-size:13px;color:var(--muted)}
 .rule b{display:block;font-family:var(--head);font-size:14.5px;color:var(--ink)}
 .rule .no{border-color:var(--red)} .rule .yes{border-color:var(--teal)} .rule .cap{border-color:var(--amber)}
-.plan{table-layout:fixed;min-width:640px}
+.plan{table-layout:fixed}
 .plan th,.plan td{text-align:left;font-size:13px;padding:7px 10px 7px 0;vertical-align:top}
 .plan th{font-size:13px}
 .plan th small{display:block;font-weight:400;color:var(--muted);font-size:12px}
 .plan td.r{font-weight:700;width:96px}
+.stackt td[data-label]{}
+@media (max-width:700px){
+  .stackt,.stackt tbody,.stackt tr,.stackt td{display:block;width:100%}
+  .stackt thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .stackt tr{border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;margin-bottom:8px;background:var(--surface)}
+  .stackt tr:last-child{margin-bottom:0}
+  .stackt td{border:0;padding:4px 0;text-align:left}
+  .stackt td[data-label]::before{content:attr(data-label);color:var(--muted);font-weight:500;font-size:12.5px}
+  .stackt.rows td{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+  .stackt.rows td:last-child{padding-right:0}
+  .stackt.rows td:first-child{font-family:var(--head);font-weight:800;font-size:15px;display:block;padding-bottom:6px}
+  .stackt.rows td:first-child .small{margin-left:6px}
+  .stackt.cols td::before{display:block;margin-top:2px}
+  .stackt.cols td.r{font-family:var(--head);font-size:15px;padding-bottom:4px;width:100%}
+  .plan td.r{width:100%}
+}
 details{margin-top:14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:9px 16px}
 details summary{cursor:pointer;font-weight:700;font-size:14px}
 details ul{margin:8px 0 2px;padding-left:18px;font-size:13px;color:var(--muted)}
@@ -174,12 +207,15 @@ footer{padding:14px 0 30px;color:var(--muted);font-size:12.5px}
       <h1>What happens when the market crashes?</h1>
       <p class="lede">MochaTrade lets people trade US stocks and crypto with borrowed money. See what a crash does to traders and to us, with and without our fixes.</p>
     </div>
-    <p class="disc">A simple model with made-up traders. It compares choices. It is not MochaTrade's real data.</p>
+    <p class="disc">A simple model with made-up traders. It compares choices. It is not MochaTrade's real data or a forecast.</p>
   </div>
   <div class="words">
-    <div><b>Leverage.</b>Borrowing to bet bigger. The more you borrow, the smaller the fall that wipes you out.</div>
-    <div><b>Wiped out.</b>The app force-sells your bet because losses got too big. The technical name is liquidation.</div>
-    <div><b>Glitch.</b>A wrong, lower price on our app. Traders get sold at a price that is not real.</div>
+    <div><b>Leverage.</b>Trading with borrowed money. At 10&times;, a 10% move against you uses up your whole margin.</div>
+    <div><b>Margin.</b>Your own deposit that backs a leveraged position. Also called collateral.</div>
+    <div><b>Liquidation.</b>The app force-closes a position when losses eat the margin. Also called being wiped out.</div>
+    <div><b>Mark price.</b>The price used to decide liquidations, taken from an oracle or price feed. A wrong one liquidates people unfairly. That is the glitch.</div>
+    <div><b>Slippage and cascade.</b>In a thin market, forced sales push the price lower and trigger more liquidations.</div>
+    <div><b>Bad debt.</b>A loss bigger than the trader's margin. The platform has to absorb it.</div>
   </div>
 </div></header>
 
@@ -187,9 +223,9 @@ footer{padding:14px 0 30px;color:var(--muted);font-size:12.5px}
   <section class="card gap" aria-labelledby="s1">
     <div class="lev">
       <div>
-        <h2 class="sh" id="s1" style="margin-bottom:6px"><span class="n">1</span>Leverage on ₹10,000</h2>
+        <h2 class="sh" id="s1" style="margin-bottom:6px"><span class="n">1</span>Leverage on ₹10,000 margin</h2>
         <div class="field">
-          <label for="lev"><span>Money you borrow</span><output id="lev-o"></output></label>
+          <label for="lev"><span>Leverage</span><output id="lev-o"></output></label>
           <input type="range" id="lev" min="1" max="50" step="1" value="10">
           <div class="hint" id="lev-hint"></div>
         </div>
@@ -201,17 +237,17 @@ footer{padding:14px 0 30px;color:var(--muted);font-size:12.5px}
   <div class="main">
     <div class="stack">
       <section class="card" aria-labelledby="s2">
-        <h2 class="sh" id="s2"><span class="n">2</span>A crash hits 5,000 traders</h2>
+        <h2 class="sh" id="s2"><span class="n">2</span>Crash scenario: 5,000 traders</h2>
         <div class="btns" id="days" role="group" aria-label="Pick a day"></div>
         <div class="sliders">
           <div class="field">
-            <label for="crashPct"><span>Real price falls</span><output id="crashPct-o"></output></label>
+            <label for="crashPct"><span>Real price drop</span><output id="crashPct-o"></output></label>
             <input type="range" id="crashPct" min="2" max="40" step="1">
           </div>
           <div class="field">
-            <label for="thin"><span>Glitch size</span><output id="thin-o"></output></label>
+            <label for="thin"><span>Mark price glitch</span><output id="thin-o"></output></label>
             <input type="range" id="thin" min="1" max="5" step="1">
-            <div class="hint">Bigger glitch: our app's price dips further below the real one.</div>
+            <div class="hint">Bigger glitch: our app's mark price dips further below the real market price.</div>
           </div>
         </div>
       </section>
@@ -223,66 +259,62 @@ footer{padding:14px 0 30px;color:var(--muted);font-size:12.5px}
 
     <div>
       <div class="verdict" id="verdict" role="status"></div>
-      <div class="res">
-        <section class="card" aria-labelledby="sr">
-          <h2 class="sh" id="sr">The damage</h2>
-          <table class="stats" id="sides"></table>
-        </section>
-        <section class="card" aria-labelledby="sc">
-          <h2 class="sh" id="sc">The first 60 minutes</h2>
-          <div class="legend" aria-hidden="true">
-            <span><span class="lg dash"></span>Real price</span>
-            <span><span class="lg red"></span>Our app, no fixes</span>
-            <span><span class="lg teal"></span>Our app, with fixes</span>
-          </div>
-          <div id="charts"></div>
-          <div class="scrub">
-            <button class="btn primary" id="play" type="button">Play</button>
-            <div class="m" id="mlabel">Minute 60</div>
-            <input type="range" id="minute" min="0" max="60" step="1" value="60" aria-label="Minute of the crash">
-          </div>
-          <p class="small" id="pausenote" style="margin-top:6px"></p>
-        </section>
-      </div>
-    <section class="card gap" aria-labelledby="s3">
-      <h2 class="sh" id="s3"><span class="n">3</span>Three kinds of day<small>same fixes as above</small></h2>
-      <div class="tablewrap"><table class="three" id="three"></table></div>
-    </section>
+      <h2 class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Key numbers</h2>
+      <div class="cards" id="kpis"></div>
+      <section class="card gap" aria-labelledby="sc">
+        <h2 class="sh" id="sc">The first 60 minutes</h2>
+        <div class="legend" aria-hidden="true">
+          <span><span class="lg dash"></span>Real price</span>
+          <span><span class="lg red"></span>Our app, no fixes</span>
+          <span><span class="lg teal"></span>Our app, with fixes</span>
+        </div>
+        <div class="charts" id="charts"></div>
+        <div class="scrub">
+          <button class="btn primary" id="play" type="button">Play</button>
+          <div class="m" id="mlabel">Minute 60</div>
+          <input type="range" id="minute" min="0" max="60" step="1" value="60" aria-label="Minute of the crash">
+        </div>
+        <p class="small" id="pausenote" style="margin-top:6px"></p>
+      </section>
+      <section class="card gap" aria-labelledby="s3">
+        <h2 class="sh" id="s3"><span class="n">3</span>Three market scenarios<small>same fixes as above</small></h2>
+        <p class="key"><span class="r">Red</span> is no fixes. <span class="g">Green</span> is with fixes.</p>
+        <table class="three stackt rows" id="three"></table>
+      </section>
     </div>
   </div>
 
   <section class="card gap" aria-labelledby="s4">
     <h2 class="sh" id="s4">Our refund rule</h2>
     <div class="rule">
-      <div class="no"><b>Real crash: no refund</b>If the whole market fell, that is trading risk. We explain it and do not repay it.</div>
-      <div class="yes"><b>Glitch: refund</b>Sold at a wrong price, or when the real price never hit your limit? We repay the loss the glitch caused.</div>
-      <div class="cap"><b>Capped at ₹1 crore</b>All refunds come from one fund. If it runs empty, we say so publicly and refunds stop.</div>
+      <div class="no"><b>Market risk: no refund</b>Losses from a real price move are trading risk. We explain them and do not repay them.</div>
+      <div class="yes"><b>Glitch: refund</b>Liquidated at a bad mark price, or when the real price never reached your liquidation level? We repay the loss the glitch caused.</div>
+      <div class="cap"><b>Capped at ₹1 crore</b>Bad debt and refunds both come from one insurance fund. If it empties, we say so publicly and refunds stop.</div>
     </div>
   </section>
 
   <section class="card gap" aria-labelledby="s5">
-    <h2 class="sh" id="s5">First 60 minutes: who does what<small>three founders, one job each for the whole hour</small></h2>
-    <div class="tablewrap">
-      <table class="plan">
-        <thead><tr><th style="width:96px"></th><th>Minutes 0 to 10</th><th>Minutes 10 to 30</th><th>Minutes 30 to 60</th></tr></thead>
-        <tbody>
-          <tr><td class="r">Engineer</td><td>Compare our price with other markets. Stop new borrowed bets.</td><td>Bring trading back step by step. Save a list of every forced sale.</td><td>Save everything for the report.</td></tr>
-          <tr><td class="r">Risk person</td><td>Check how much is in the fund.</td><td>Sort each sale: real crash or glitch.</td><td>Approve refunds for glitch cases.</td></tr>
-          <tr><td class="r">Support person</td><td>Post in the app: "Prices are moving fast. Next update at [time]."</td><td>Message each hurt trader with their own price.</td><td>Post a public update with real numbers. Promise a full report in 24 hours.</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <h2 class="sh" id="s5">First 60 minutes: who does what<small>three founders, one job each</small></h2>
+    <table class="plan stackt cols">
+      <thead><tr><th style="width:110px"></th><th>Minutes 0 to 10</th><th>Minutes 10 to 30</th><th>Minutes 30 to 60</th></tr></thead>
+      <tbody>
+        <tr><td class="r">Engineer</td><td data-label="Minutes 0 to 10">Compare our mark price with other venues. Set the market to reduce-only, so no new leveraged positions open.</td><td data-label="Minutes 10 to 30">Reopen trading in stages. Export a log of every forced liquidation.</td><td data-label="Minutes 30 to 60">Save all logs and price feeds for the post-mortem.</td></tr>
+        <tr><td class="r">Risk desk</td><td data-label="Minutes 0 to 10">Check the insurance fund balance and open positions.</td><td data-label="Minutes 10 to 30">Tag each liquidation: real market move or glitch.</td><td data-label="Minutes 30 to 60">Approve refunds for glitch cases.</td></tr>
+        <tr><td class="r">Support and comms</td><td data-label="Minutes 0 to 10">Post in the app: "Prices are moving fast. Next update at [time]."</td><td data-label="Minutes 10 to 30">Message each liquidated trader with their own price.</td><td data-label="Minutes 30 to 60">Post a public update with real numbers. Promise a full post-mortem in 24 hours.</td></tr>
+      </tbody>
+    </table>
   </section>
 
   <details>
     <summary>How the model works</summary>
     <ul>
-      <li>5,000 traders. Typical deposit ₹10,000. Three in four bet the price goes up. They borrow 2 to 50 times their money.</li>
-      <li>One volatile US stock. The real price falls, then bounces back a little, or not at all on the worst day.</li>
-      <li>A trader is wiped out when losses eat almost the whole deposit.</li>
-      <li>The glitch: few buyers on our app, so its price dips below the real one. Forced selling pushes it lower, wiping out more traders. The chain reaction fades after a few minutes.</li>
-      <li>"Lost to the glitch" is the extra loss from being sold more than 1% below the real price, plus the whole loss of anyone who would have survived at the real price.</li>
-      <li>Not included: fees, taxes, several stocks at once, and law. It compares choices. It does not predict exact rupee amounts.</li>
+      <li>5,000 traders with ₹10,000 typical margin. Three in four hold long positions. They use 2× to 50× leverage.</li>
+      <li>One volatile US stock, traded as a perpetual future. The real price drops, then rebounds a little, or not at all on the worst day.</li>
+      <li>A position is liquidated when losses eat almost the whole margin (the maintenance margin).</li>
+      <li>The glitch: few buyers on our app, so its mark price dips below the real one. Forced sales add slippage and set off a cascade of more liquidations. It fades after a few minutes.</li>
+      <li>"Lost to the glitch" is the extra loss from being closed more than 1% below the real price, plus the whole loss of anyone who would have survived at the real price.</li>
+      <li>Total losses = real-market losses + glitch losses. Bad debt is what traders lost beyond their margin.</li>
+      <li>Not included: fees, funding rates, taxes, several stocks at once, and law. It compares choices. It does not predict exact rupee amounts.</li>
     </ul>
   </details>
 </main>
@@ -620,32 +652,32 @@ footer{padding:14px 0 30px;color:var(--muted);font-size:12.5px}
   var FALLS = [{ f: 3, t: 'Small dip' }, { f: 10, t: 'Bad day' }, { f: 25, t: 'Wipeout day' }];
   function renderLev() {
     var L = parseInt($('#lev').value, 10), dep = 10000;
-    $('#lev-o').textContent = L === 1 ? '1 time' : L + ' times';
+    $('#lev-o').textContent = L + '×';
     var wipe = 100 / L;
     $('#lev-hint').textContent = L === 1
-      ? 'Only your own ₹10,000. A 100% fall wipes you out.'
-      : '₹10,000 becomes a ₹' + (dep * L).toLocaleString('en-IN') + ' bet. A ' + (wipe % 1 ? wipe.toFixed(1) : wipe) + '% fall wipes you out.';
+      ? 'No leverage: only your own ₹10,000. A 100% drop liquidates you.'
+      : '₹10,000 margin controls a ₹' + (dep * L).toLocaleString('en-IN') + ' position. A ' + (wipe % 1 ? wipe.toFixed(1) : wipe) + '% drop liquidates you.';
     $('#levcards').innerHTML = FALLS.map(function (d) {
       var lossPct = Math.min(100, L * d.f), loss = dep * lossPct / 100, dead = L * d.f >= 100;
       var cls = dead ? 'dead' : (loss >= 3000 ? 'hurt' : 'safe');
       return '<div class="day ' + cls + '"><div class="d">' + d.t + ': price falls ' + d.f + '%</div><div class="big">-₹' + Math.round(loss).toLocaleString('en-IN') + '</div>' +
-        '<div class="s">' + (dead ? 'Wiped out. All ₹10,000 gone.' : 'You keep ₹' + Math.round(dep - loss).toLocaleString('en-IN') + '.') + '</div>' +
+        '<div class="s">' + (dead ? 'Liquidated. All ₹10,000 margin lost.' : 'Margin left: ₹' + Math.round(dep - loss).toLocaleString('en-IN') + '.') + '</div>' +
         '<div class="meter" aria-hidden="true"><i style="width:' + lossPct + '%"></i></div></div>';
     }).join('');
   }
 
   /* ---------- 2: controls ---------- */
   var FIXES = [
-    { k: 'cap', t: 'Lower the borrowing limit', w: 'Cap borrowing at a set limit. A bigger fall is needed to wipe anyone out.' },
-    { k: 'fair', t: 'Check many price sources', w: 'Sell using the average of many markets, so one wrong price cannot wipe anyone out.' },
-    { k: 'partial', t: 'Sell slowly', w: 'Sell just enough to make a bet safe, not all at once. Less chain reaction.' },
-    { k: 'pause', t: 'Pause on big drops', w: 'After a fast 5% drop, pause forced selling up to 5 minutes. Restarts early if the fall goes on.' },
-    { k: 'refund', t: 'Refund fund of ₹1 crore', w: 'Repays glitch losses, never real-crash losses. Stops when empty.' }
+    { k: 'cap', t: 'Cap maximum leverage', w: 'Traders can borrow less, so it takes a bigger drop to liquidate anyone.' },
+    { k: 'fair', t: 'Multi-source mark price', w: 'Liquidate on the median of many markets, so one bad oracle price cannot trigger liquidations.' },
+    { k: 'partial', t: 'Partial liquidation', w: 'Close only enough of a position to restore margin, not all at once. Less cascade.' },
+    { k: 'pause', t: 'Circuit breaker', w: 'After a fast 5% drop, halt liquidations for up to 5 minutes. Resumes early if the fall continues.' },
+    { k: 'refund', t: 'Insurance fund of ₹1 crore', w: 'Covers bad debt, then glitch refunds. Never repays real-market losses. Stops when empty.' }
   ];
   function buildControls() {
     $('#days').innerHTML = DAYS.map(function (d) { return '<button type="button" class="btn" data-d="' + d.id + '" aria-pressed="false">' + d.label + '</button>'; }).join('') ;
     $('#fixes').innerHTML = FIXES.map(function (f) {
-      var sub = f.k === 'cap' ? '<div class="sub" id="sub-cap"><div class="field"><label for="capX"><span>Borrowing limit</span><output id="capX-o"></output></label><input type="range" id="capX" min="3" max="20" step="1"><div class="hint">At 3 times nobody is wiped out, even on a wipeout day. But few would use an app that limits them that much.</div></div></div>' : '';
+      var sub = f.k === 'cap' ? '<div class="sub" id="sub-cap"><div class="field"><label for="capX"><span>Max leverage</span><output id="capX-o"></output></label><input type="range" id="capX" min="3" max="20" step="1"><div class="hint">At 3× nobody is liquidated, even on a wipeout day. But few would use an app that limits them that much.</div></div></div>' : '';
       return '<div class="fix" id="fx-' + f.k + '"><label class="h"><span class="tg"><input type="checkbox" id="c-' + f.k + '"><i></i></span><span><span class="t">' + f.t + '</span><span class="w">' + f.w + '</span></span></label>' + sub + '</div>';
     }).join('');
     function onBtn(e) {
@@ -664,7 +696,7 @@ footer{padding:14px 0 30px;color:var(--muted);font-size:12.5px}
   function sync() {
     $('#crashPct').value = state.scen.crashPct; $('#crashPct-o').textContent = state.scen.crashPct + '%';
     $('#thin').value = state.scen.thin; $('#thin-o').textContent = GLITCH[state.scen.thin];
-    $('#capX').value = state.fix.capX; $('#capX-o').textContent = state.fix.capX + ' times';
+    $('#capX').value = state.fix.capX; $('#capX-o').textContent = state.fix.capX + '×';
     FIXES.forEach(function (f) { $('#c-' + f.k).checked = !!state.fix[f.k]; $('#fx-' + f.k).classList.toggle('on', !!state.fix[f.k]); });
     $('#sub-cap').style.display = state.fix.cap ? '' : 'none';
     Array.prototype.forEach.call(document.querySelectorAll('[data-d],[data-f]'), function (b) {
@@ -692,30 +724,46 @@ footer{padding:14px 0 30px;color:var(--muted);font-size:12.5px}
   function renderResults() {
     var b = state.b.summary, c = state.c.summary, F = state.fix, hasFund = !!F.refund;
     var used = hasFund ? Math.min(1, (FUND - c.fundLeft2) / FUND) : 0;
-    function row(l, sub, bv, cv, extra) {
-      return '<tr><td class="l">' + l + (sub ? '<span>' + sub + '</span>' : '') + '</td><td class="v red">' + bv + '</td><td class="v teal">' + cv + (extra || '') + '</td></tr>';
+    var any0 = FIXES.some(function (f) { return F[f.k]; });
+    function chip(bv, cv, lowerBetter) {
+      if (!(bv > 0) || !any0) return '';
+      var d = (cv - bv) / bv; if (Math.abs(d) < 0.005) return '';
+      var good = lowerBetter ? d < 0 : d > 0;
+      return '<span class="chg ' + (good ? 'good' : 'bad') + '">' + (d < 0 ? '−' : '+') + Math.round(Math.abs(d) * 100) + '%</span>';
     }
-    var h = '<thead><tr><th></th><th class="red">No fixes</th><th class="teal">With fixes</th></tr></thead><tbody>';
-    h += row('Traders wiped out', 'out of ' + num(b.active0), num(b.liquidated), num(c.liquidated));
-    h += row('Lost to the real crash', 'never refunded', inr(b.realLoss), inr(c.realLoss));
-    h += row('Lost to the glitch', '', inr(b.glitchLoss), inr(c.glitchLoss));
-    h += row('Paid back', hasFund ? 'from the ₹1 crore fund' : 'no fund', '₹0', hasFund ? inr(c.refunded) : '₹0');
-    h += row('Glitch losses not repaid', '', inr(b.notRefunded), inr(c.notRefunded));
-    h += row('Lost beyond deposits', 'the company absorbs this', inr(b.unpaid), inr(c.unpaid));
-    h += row('Left in the fund', 'of ₹1 crore', '-', hasFund ? inr(c.fundLeft2) : '-', hasFund ? '<div class="fundbar" aria-hidden="true"><i style="width:' + (used * 100).toFixed(0) + '%"></i></div>' : '');
-    $('#sides').innerHTML = h + '</tbody>';
+    function kpi(cls, label, term, big, was, sub, extra) {
+      return '<div class="kpi ' + cls + '"><div class="k"><span>' + label + '</span><small>' + term + '</small></div><div class="big">' + big + '</div><div class="was">' + was + '</div>' + (sub ? '<div class="sub">' + sub + '</div>' : '') + (extra || '') + '</div>';
+    }
+    var totB = b.realLoss + b.glitchLoss, totC = c.realLoss + c.glitchLoss;
+    var h = '';
+    h += kpi('hero a', 'Total losses', 'all traders', inr(totC),
+      'No fixes: <b>' + inr(totB) + '</b> ' + chip(totB, totC, true),
+      '<span>Real market ' + inr(c.realLoss) + '</span> · <span>Glitch ' + inr(c.glitchLoss) + '</span>');
+    h += kpi('hero b', 'Glitch refunds paid', 'from the insurance fund', hasFund ? inr(c.refunded) : '₹0',
+      'No fixes: <b>₹0</b>' + (hasFund ? '' : ' (no fund)'),
+      '<span>Glitch losses ' + inr(b.glitchLoss) + ' → ' + inr(c.glitchLoss) + '</span> · <span>Not repaid ' + inr(c.notRefunded) + '</span>');
+    h += kpi('', 'Liquidations', 'positions closed', num(c.liquidated),
+      'No fixes: <b>' + num(b.liquidated) + '</b> ' + chip(b.liquidated, c.liquidated, true),
+      'of ' + num(b.active0) + ' traders');
+    h += kpi(c.unpaid > FUND * 0.5 ? 'warn' : '', 'Bad debt', 'beyond margin', inr(c.unpaid),
+      'No fixes: <b>' + inr(b.unpaid) + '</b> ' + chip(b.unpaid, c.unpaid, true),
+      'The company absorbs this');
+    h += kpi('', 'Insurance fund left', 'of ₹1 crore', hasFund ? inr(c.fundLeft2) : 'No fund',
+      'No fixes: <b>no fund</b>', '',
+      hasFund ? '<div class="fundbar" aria-hidden="true"><i style="width:' + (used * 100).toFixed(0) + '%"></i></div>' : '');
+    $('#kpis').innerHTML = h;
 
     var any = FIXES.some(function (f) { return F[f.k]; }), t, warn = false;
-    if (!any) { t = 'No fixes are on, so both sides match. ' + num(b.liquidated) + ' traders are wiped out and ' + inr(b.glitchLoss) + ' is lost to the glitch. Switch some fixes on.'; warn = true; }
+    if (!any) { t = 'No fixes are on, so both sides match. ' + num(b.liquidated) + ' traders are liquidated and ' + inr(b.glitchLoss) + ' is lost to the glitch. Switch some fixes on.'; warn = true; }
     else {
-      t = 'With your fixes, <b>' + num(c.liquidated) + '</b> traders are wiped out instead of <b>' + num(b.liquidated) + '</b>. ';
+      t = 'With your fixes, <b>' + num(c.liquidated) + '</b> traders are liquidated instead of <b>' + num(b.liquidated) + '</b>. ';
       t += 'Glitch losses fall from <b>' + inr(b.glitchLoss) + '</b> to <b>' + inr(c.glitchLoss) + '</b>. ';
       if (F.refund) {
         if (c.glitchLoss === 0) t += 'Nothing needs refunding.';
-        else if (c.notRefunded > 0) { t += 'The ₹1 crore fund runs out, so <b>' + inr(c.notRefunded) + '</b> is not repaid.'; warn = true; }
-        else t += 'The fund repays all of it and ' + inr(c.fundLeft2) + ' is left.';
-      } else if (c.glitchLoss > 0) { t += 'With no refund fund, traders carry that loss.'; }
-      if (c.unpaid > FUND * 0.5) { t += ' Warning: traders lost ' + inr(c.unpaid) + ' more than they put in. The company absorbs it.'; warn = true; }
+        else if (c.notRefunded > 0) { t += 'The ₹1 crore insurance fund runs out, so <b>' + inr(c.notRefunded) + '</b> is not repaid.'; warn = true; }
+        else t += 'The insurance fund repays all of it and ' + inr(c.fundLeft2) + ' is left.';
+      } else if (c.glitchLoss > 0) { t += 'With no insurance fund, traders carry that loss.'; }
+      if (c.unpaid > FUND * 0.5) { t += ' Warning: bad debt of ' + inr(c.unpaid) + ', losses beyond traders\' margin. The company absorbs it.'; warn = true; }
     }
     var v = $('#verdict'); v.className = 'verdict' + (warn ? ' warn' : ''); v.innerHTML = t;
     var el = $('#pausenote');
@@ -732,7 +780,7 @@ footer{padding:14px 0 30px;color:var(--muted);font-size:12.5px}
     var t = [], v = Math.ceil(lo / step) * step; for (; v <= hi + 1e-9; v += step) t.push(+v.toFixed(6)); return t;
   }
   function chartSVG(o, W) {
-    var H = 150, ml = 40, mr = 8, mt = 8, mb = 22, yMin = o.yMin, yMax = o.yMax;
+    var H = 160, ml = 40, mr = 8, mt = 8, mb = 22, yMin = o.yMin, yMax = o.yMax;
     function sx(x) { return ml + x / 60 * (W - ml - mr); }
     function sy(y) { return mt + (1 - (y - yMin) / (yMax - yMin)) * (H - mt - mb); }
     var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + o.aria + '">';
@@ -752,12 +800,12 @@ footer{padding:14px 0 30px;color:var(--muted);font-size:12.5px}
   function renderCharts() {
     if (!state.b) return;
     var b = state.b, c = state.c, bs = b.summary, cs = c.summary;
-    var W = Math.max(260, Math.round($('#charts').clientWidth || 420));
+    var cw = $('#charts').clientWidth || 420, cols = cw > 640 ? 2 : 1, W = Math.max(260, Math.round((cw - (cols - 1) * 18) / cols));
     var yMinP = Math.floor(Math.min(bs.minLast, cs.minLast, bs.minFair) - 1);
     var maxLiq = Math.max(bs.liquidated, cs.liquidated, 10) * 1.06;
     var d = [
       { t: 'Price (starts at 100)', aria: 'Price over 60 minutes', yMin: yMinP, yMax: 101, yFmt: function (v) { return v.toFixed(0); }, series: [{ cls: 'l-fair', data: b.fairS }, { cls: 'l-red', data: b.lastS }, { cls: 'l-teal', data: c.lastS }] },
-      { t: 'Traders wiped out so far', aria: 'Traders wiped out over 60 minutes', yMin: 0, yMax: maxLiq, yFmt: short, series: [{ cls: 'l-red', data: b.cumLiq }, { cls: 'l-teal', data: c.cumLiq }] }
+      { t: 'Liquidations so far', aria: 'Liquidations over 60 minutes', yMin: 0, yMax: maxLiq, yFmt: short, series: [{ cls: 'l-red', data: b.cumLiq }, { cls: 'l-teal', data: c.cumLiq }] }
     ];
     $('#charts').innerHTML = d.map(function (x) { return '<div class="chart"><h3>' + x.t + '</h3>' + chartSVG(x, W) + '</div>'; }).join('');
   }
@@ -769,7 +817,7 @@ footer{padding:14px 0 30px;color:var(--muted);font-size:12.5px}
   var tk = 0, tt = 0;
   function scheduleThree() {
     clearTimeout(tt); var my = ++tk;
-    $('#three').innerHTML = '<tr><td>Working it out...</td></tr>';
+    $('#three').innerHTML = '<tbody><tr><td>Working it out...</td></tr></tbody>';
     tt = setTimeout(function () {
       var rows = [], i = 0;
       (function step() {
@@ -782,10 +830,14 @@ footer{padding:14px 0 30px;color:var(--muted);font-size:12.5px}
     }, 150);
   }
   function renderThree(rows) {
-    var h = '<thead><tr><th></th><th colspan="2">Wiped out</th><th colspan="2">Lost to glitch</th><th rowspan="2">Repaid</th><th rowspan="2">Fund left</th></tr>' +
-      '<tr><th></th><th>No fixes</th><th>Fixes</th><th>No fixes</th><th>Fixes</th></tr></thead><tbody>';
+    var A = '<span class="arrow" aria-hidden="true">→</span><span class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"> then </span>';
+    var h = '<thead><tr><th>Scenario</th><th>Liquidations</th><th>Glitch losses</th><th>Refunded</th><th>Fund left</th></tr></thead><tbody>';
     rows.forEach(function (r) {
-      h += '<tr><td>' + r.d.label + '<br><span class="small">falls ' + r.d.p.crashPct + '%</span></td><td class="red">' + num(r.b.liquidated) + '</td><td class="teal">' + num(r.c.liquidated) + '</td><td class="red">' + inr(r.b.glitchLoss) + '</td><td class="teal">' + inr(r.c.glitchLoss) + '</td><td>' + inr(r.c.refunded) + '</td><td>' + (state.fix.refund ? inr(r.c.fundLeft2) : 'no fund') + '</td></tr>';
+      h += '<tr><td data-label="">' + r.d.label + '<span class="small"> · drop ' + r.d.p.crashPct + '%</span></td>' +
+        '<td data-label="Liquidations"><span><span class="r">' + num(r.b.liquidated) + '</span>' + A + '<span class="g">' + num(r.c.liquidated) + '</span></span></td>' +
+        '<td data-label="Glitch losses"><span><span class="r">' + inr(r.b.glitchLoss) + '</span>' + A + '<span class="g">' + inr(r.c.glitchLoss) + '</span></span></td>' +
+        '<td data-label="Refunded">' + inr(r.c.refunded) + '</td>' +
+        '<td data-label="Fund left">' + (state.fix.refund ? inr(r.c.fundLeft2) : 'no fund') + '</td></tr>';
     });
     $('#three').innerHTML = h + '</tbody>';
   }
